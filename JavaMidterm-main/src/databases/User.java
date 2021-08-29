@@ -6,9 +6,7 @@ public class User {
     String stID;
     String stDOB;
 
-    public User() {
-    }
-
+    public User() {}
     public User(String stName, String stID) {
         this.stName = stName;
         this.stID = stID;

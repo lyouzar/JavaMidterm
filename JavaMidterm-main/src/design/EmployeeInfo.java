@@ -2,65 +2,77 @@ package design;
 
 import java.util.Scanner;
 
-public class EmployeeInfo {
+public class EmployeeInfo implements Employee{
 
-    /*
-    This class should implement the Employee interface. You can do that by directly implementing it, however you must
-        also implement the Employee interface into an abstract class. So create an Abstract class then inherit that
-        abstract class into this EmployeeInfo class. Once you're done with designing EmployeeInfo class,
-        go to FortuneEmployee class to apply all the fields and attributes.
-
-    Important: YOU MUST USE:
-        - OOP (Abstraction, Encapsulation, Inheritance and Polymorphism) concepts in every level possible.
-        - Use all kind of keywords (super, this, static, final, etc)
-        - Implement nested class below (DateConversion)
-        - Use Exception Handling
+    /*This class can be implemented from Employee interface then add additional methods in EmployeeInfo class.
+     * Also, Employee interface can be implemented into an abstract class.So create an Abstract class
+     * then inherit that abstract class into EmployeeInfo class.Once you done with designing EmployeeInfo class,
+     * go to FortuneEmployee class to apply all the fields and attributes.
+     *
+     * Important: YOU MUST USE the
+     * OOP(abstraction,Encapsulation, Inheritance and Polymorphism) concepts in every level possible.
+     * Use all kind of keywords(super,this,static,final........)
+     * Implement Nested class.
+     * Use Exception Handling.
+     *
      */
 
     /*
-     * Make sure to declare and use static, non-static & final fields
+     * declare few static and final fields and some non-static fields
      */
-    static String companyName;
+    private static String companyName;
+    private int employeeId;
+    private String employeeName;
+    private String employeeDepartment;
+    private int employeeSalary;
+
 
     /*
-     You must implement the logic for below 2 methods and
-        following 2 methods are prototype as well for other methods need to be design,
-        as you will come up with the new ideas.
+     * You must implement the logic for below 2 methods and
+     * following 2 methods are prototype as well for other methods need to be design,
+     * as you will come up with the new ideas.
      */
 
     /*
-     You must have/use multiple constructors
+     * you must have multiple constructor.
+     * Must implement below constructor.
      */
+    public EmployeeInfo() {
+    }
+
     public EmployeeInfo(int employeeId) {
 
+        this.employeeId = employeeId;
     }
 
     public EmployeeInfo(String name, int employeeId) {
 
+        this.employeeName = name;
+        this.employeeId = employeeId;
     }
 
     /*
-     You need to implement the logic of this method as such:
-        It should calculate Employee bonus based on salary and performance.
-        It should return the total yearly bonus.
-            Example: 10% of salary for best performance, 8% of salary for average performance and so on.
-            You can set arbitrary number for performance, so you probably need to send 2 arguments.
+     * This methods should calculate Employee bonus based on salary and performance.
+     * Then it will return the total yearly bonus. So you need to implement the logic.
+     * Hints: 10% of the salary for best performance, 8% of the salary for average performance and so on.
+     * You can set arbitrary number for performance.
+     * So you probably need to send 2 arguments.
      *
      */
-    public static int calculateEmployeeBonus(int numberOfYearsWithCompany) {
+    public int calculateEmployeeBonus(int performance) {
         int total = 0;
         return total;
     }
 
     /*
-     You need to implement the logic of this method as such:
-        It should calculate Employee pension based on salary and numbers of years with the company.
-        It should return the total pension amount.
-            Example: Employee will receive 5% of salary as pension for every year they are with the company
+     * This methods should calculate Employee Pension based on salary and numbers of years with the company.
+     * Then it will return the total pension. So you need to implement the logic.
+     * Hints: pension will be 5% of the salary for 1 year, 10% for 2 years with the company and so on.
      *
      */
-    public static int calculateEmployeePension() {
-        int total = 0;
+    public double calculateEmployeePension() {
+
+        double total = 0;
         Scanner sc = new Scanner(System.in);
         System.out.println("Please enter start date in format (example: May,2015): ");
         String joiningDate = sc.nextLine();
@@ -69,8 +81,11 @@ public class EmployeeInfo {
         String convertedJoiningDate = DateConversion.convertDate(joiningDate);
         String convertedTodaysDate = DateConversion.convertDate(todaysDate);
 
-        // Figure out how to extract the number of years the employee has been with the company, using the above 2 dates
-        // Calculate pension
+        int numberOfYears = Integer.valueOf(convertedTodaysDate.split("/")[1]) -
+                Integer.valueOf(convertedJoiningDate.split("/")[1]);
+
+        for (int i = 1; i <= numberOfYears; i++)
+            total += calculateSalary() * 0.05 * i;
 
         return total;
     }
@@ -135,5 +150,61 @@ public class EmployeeInfo {
             return date;
 
         }
+    }
+
+    public void setEmployeeId(int employeeId) {
+
+        this.employeeId = employeeId;
+    }
+
+    public int employeeId() {
+
+        return this.employeeId;
+    }
+
+    public void setEmployeeName(String employeeName) {
+
+        this.employeeName = employeeName;
+    }
+
+    public String employeeName() {
+
+        return this.employeeName;
+    }
+
+    public void assignDepartment(String department) {
+
+        this.employeeDepartment = department;
+    }
+
+
+    public String getEmployeeDepartment() {
+
+        return this.employeeDepartment;
+    }
+
+    public void setEmployeeSalary(int employeeSalary) {
+
+        this.employeeSalary = employeeSalary;
+    }
+
+    public int calculateSalary() {
+
+        return this.employeeSalary;
+    }
+
+    @Override
+    public void benefitLayout() {
+
+    }
+
+    static void setCompanyName(String companyName) {
+
+        EmployeeInfo.companyName = companyName;
+    }
+
+    String getCompanyName() {
+
+        return EmployeeInfo.companyName;
     }
 }
